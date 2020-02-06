@@ -14,7 +14,7 @@ export class PlayerComponent implements OnInit{
   files: Array<MusicFile> = [];
   state: StreamState;
   currentFile: any = {};
-  public volume: number = 0.75;
+  public volume: number = 1;
   public veritcalSlider: boolean = true;
   public displayVolume = false;
 
