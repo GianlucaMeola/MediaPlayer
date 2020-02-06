@@ -15,6 +15,7 @@ export class PlayerComponent implements OnInit{
   state: StreamState;
   currentFile: any = {};
 
+
   constructor(public audioService: AudioService, public cloudService: CloudService) {
     cloudService.getFiles().subscribe( files => {
       this.files = files;
@@ -26,16 +27,18 @@ export class PlayerComponent implements OnInit{
    }
 
    ngOnInit(){
-     this.currentFile = {
-       index: 0,
-       file: this.files[0]
-     }
+    this.initFirst();
    }
 
    playStream(url){
      this.audioService.playStream(url).subscribe(event => {
        //lissen music
      })
+   }
+   
+   initFirst(){
+    this.openFile(this.files[0], 0);
+    this.pause();
    }
 
    openFile(file, index){
