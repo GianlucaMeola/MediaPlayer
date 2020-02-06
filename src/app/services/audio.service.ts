@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import {Observable, BehaviorSubject, Subject, from} from 'rxjs';
+import {Observable, BehaviorSubject, Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import * as moment from 'moment';
 import{StreamState} from '../interfaces/stream-state';
-import { StepState } from '@angular/cdk/stepper';
 
 @Injectable({
   providedIn: 'root'
@@ -23,15 +22,15 @@ audioEvents = [
   'canplay',
   'loadedmetadata',
   'loadstart'
-]
-
-playStream(url){
-  return this.streamObservable(url).pipe(takeUntil(this.stop$))
-}
+];
 
 private stateChange: BehaviorSubject<StreamState> = new BehaviorSubject(
   this.state
 );
+
+playStream(url){
+  return this.streamObservable(url).pipe(takeUntil(this.stop$));
+}
 
 getState(): Observable<StreamState> {
   return this.stateChange.asObservable();
@@ -51,6 +50,10 @@ stop() {
 
 seekTo(seconds) {
   this.audioObj.currentTime = seconds;
+}
+
+setVolume(volume){
+  this.audioObj.volume = volume;
 }
 
 private streamObservable(url):any{
