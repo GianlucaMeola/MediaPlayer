@@ -57,22 +57,22 @@ export class PlayerComponent implements OnInit{
    }
 
    next(){
-     const index = this.currentFile.index + 1;
-     const file = this.files[index];
-     this.openFile(file, index);
+    let index = !this.isLastPlaying() ? this.currentFile.index + 1 : 0;
+    const file = this.files[index];
+    this.openFile(file, index);
    }
 
    previous(){
-    const index = this.currentFile.index - 1;
+    const index = !this.isFirstPlaying() ? this.currentFile.index - 1 : this.files.length - 1;
     const file = this.files[index];
     this.openFile(file, index);
   }
 
-  isFirstPlaying() {
+  isFirstPlaying(): boolean {
     return this.currentFile.index === 0;
   }
-  isLastPlaying() {
-    return this.currentFile.index === this.files.length -1;
+  isLastPlaying(): boolean {
+    return this.currentFile.index === this.files.length - 1;
   }
 
   onSliderChangeEnd(change){
