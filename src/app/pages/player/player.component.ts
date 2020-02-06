@@ -16,6 +16,7 @@ export class PlayerComponent implements OnInit{
   currentFile: any = {};
   public volume: number = 0.75;
   public veritcalSlider: boolean = true;
+  public displayVolume = false;
 
 
   constructor(public audioService: AudioService, public cloudService: CloudService) {
@@ -82,6 +83,10 @@ export class PlayerComponent implements OnInit{
 
   onSliderChangeEnd(change){
     this.audioService.seekTo(change.value)
+  }
+
+  displayVolumeControl(){
+    this.displayVolume = !this.displayVolume;
   }
 
   onVolumeChange(change){

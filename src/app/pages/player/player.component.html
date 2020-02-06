@@ -20,10 +20,11 @@
       </mat-list>
     </div>
     <div class="media-footer">
-        <mat-slider min="0" [max]="1" step="0.01" [value]="volume" (input)="onVolumeChange($event)" [vertical] = "veritcalSlider" [disabled]="state?.error || currentFile.index === undefined"></mat-slider>
+        <mat-slider style="background-color:#2a3eaf" *ngIf= "displayVolume" min="0" [max]="1" step="0.01" [(value)]="volume" (input)="onVolumeChange($event)" [vertical] = "veritcalSlider" [disabled]="state?.error || currentFile.index === undefined"></mat-slider>
           
       <mat-toolbar color="primary">
         <mat-toolbar-row>
+           <mat-icon (click) = "displayVolumeControl()">volume_up</mat-icon>
            {{ state?.readableCurrentTime }}
            <mat-slider class="time-slider" min="0" [max]="state?.duration" step="1" [value]="state?.currentTime" (input)="onSliderChangeEnd($event)" [disabled]="state?.error || currentFile.index === undefined"></mat-slider>
            {{ state?.readableDuration }}
