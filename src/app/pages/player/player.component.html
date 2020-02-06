@@ -30,7 +30,7 @@
           <mat-icon color="primary" mat-list-icon>music_note</mat-icon>
           <h4 mat-line>{{ file.name }}</h4>
           <h5 mat-line>by {{ file.artist }}</h5>
-          <mat-icon color="primary" *ngIf="currentFile.index === i && !state?.error">play_arrow</mat-icon>
+          <mat-icon color="primary" *ngIf="currentFile.index === i && !state?.error" #playing>play_arrow</mat-icon>
           <h6 *ngIf="currentFile.index === i && state?.error">ERROR</h6>
           <mat-divider></mat-divider>
         </mat-list-item>
