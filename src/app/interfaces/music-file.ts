@@ -1,5 +1,5 @@
 export interface MusicFile {
     url: string;
-    name: string;
+    title: string;
     artist: string;
 }
