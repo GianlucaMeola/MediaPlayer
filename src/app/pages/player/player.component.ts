@@ -18,19 +18,21 @@ export class PlayerComponent implements OnInit{
   public veritcalSlider: boolean = true;
   public displayVolume = false;
 
-
   constructor(public audioService: AudioService, public cloudService: CloudService) {
-    cloudService.getFiles().subscribe( files => {
-      this.files = files;
-    });
-
     this.audioService.getState().subscribe( state => {
       this.state = state;
     });
    }
 
-   ngOnInit(){
+  ngOnInit(){
+    this.loadMusic();
     this.initFirst();
+   }
+
+   loadMusic(){
+    this.cloudService.getFiles().subscribe( files => {
+      this.files = files;
+    });
    }
 
    playStream(uri){

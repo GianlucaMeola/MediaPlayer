@@ -1,107 +1,17 @@
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
-import {FileDetails} from '../interfaces/music-file'
+import {FileDetails} from '../interfaces/music-file';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { map, catchError, tap } from 'rxjs/operators';
 
-@Injectable({
-  providedIn: 'root'
-})
+const endpoint: string = "https://musicfileapi.azurewebsites.net/api/MusicFile";
+
+@Injectable()
 export class CloudService {
 
-  files: FileDetails[] = [
-    // tslint:disable-next-line: max-line-length
-    {
-      uri:
-        "https://ia801504.us.archive.org/3/items/EdSheeranPerfectOfficialMusicVideoListenVid.com/Ed_Sheeran_-_Perfect_Official_Music_Video%5BListenVid.com%5D.mp3",
-      title: "Perfect",
-      artist: " Ed Sheeran"
-    },
-    {
-      // tslint:disable-next-line: max-line-length
-      uri:"https://ia801409.us.archive.org/31/items/dearbasketballkobebryantoscarwinnershortfilm/DEAR%20BASKETBALL%20-%20KOBE%20BRYANT%20%28Oscar%20Winner%20Short%20Film%29.mp3",
-      title: "DEAR BASKETBALL - KOBE BRYANT (Oscar Winner Short Film)",
-      artist: "KOBE BRYANT"
-    },
-    // tslint:disable-next-line: max-line-length
-    {
-      uri:
-        "https://ia801504.us.archive.org/3/items/EdSheeranPerfectOfficialMusicVideoListenVid.com/Ed_Sheeran_-_Perfect_Official_Music_Video%5BListenVid.com%5D.mp3",
-      title: "Perfect",
-      artist: " Ed Sheeran"
-    },
-    {
-      // tslint:disable-next-line: max-line-length
-      uri:"https://ia801409.us.archive.org/31/items/dearbasketballkobebryantoscarwinnershortfilm/DEAR%20BASKETBALL%20-%20KOBE%20BRYANT%20%28Oscar%20Winner%20Short%20Film%29.mp3",
-      title: "DEAR BASKETBALL - KOBE BRYANT (Oscar Winner Short Film)",
-      artist: "KOBE BRYANT"
-    },
-    // tslint:disable-next-line: max-line-length
-    {
-      uri:
-        "https://ia801504.us.archive.org/3/items/EdSheeranPerfectOfficialMusicVideoListenVid.com/Ed_Sheeran_-_Perfect_Official_Music_Video%5BListenVid.com%5D.mp3",
-      title: "Perfect",
-      artist: " Ed Sheeran"
-    },
-    {
-      // tslint:disable-next-line: max-line-length
-      uri:"https://ia801409.us.archive.org/31/items/dearbasketballkobebryantoscarwinnershortfilm/DEAR%20BASKETBALL%20-%20KOBE%20BRYANT%20%28Oscar%20Winner%20Short%20Film%29.mp3",
-      title: "DEAR BASKETBALL - KOBE BRYANT (Oscar Winner Short Film)",
-      artist: "KOBE BRYANT"
-    },
-    // tslint:disable-next-line: max-line-length
-    {
-      uri:
-        "https://ia801504.us.archive.org/3/items/EdSheeranPerfectOfficialMusicVideoListenVid.com/Ed_Sheeran_-_Perfect_Official_Music_Video%5BListenVid.com%5D.mp3",
-      title: "Perfect",
-      artist: " Ed Sheeran"
-    },
-    {
-      // tslint:disable-next-line: max-line-length
-      uri:"https://ia801409.us.archive.org/31/items/dearbasketballkobebryantoscarwinnershortfilm/DEAR%20BASKETBALL%20-%20KOBE%20BRYANT%20%28Oscar%20Winner%20Short%20Film%29.mp3",
-      title: "DEAR BASKETBALL - KOBE BRYANT (Oscar Winner Short Film)",
-      artist: "KOBE BRYANT"
-    },
-    // tslint:disable-next-line: max-line-length
-    {
-      uri:
-        "https://ia801504.us.archive.org/3/items/EdSheeranPerfectOfficialMusicVideoListenVid.com/Ed_Sheeran_-_Perfect_Official_Music_Video%5BListenVid.com%5D.mp3",
-      title: "Perfect",
-      artist: " Ed Sheeran"
-    },
-    {
-      // tslint:disable-next-line: max-line-length
-      uri:"https://ia801409.us.archive.org/31/items/dearbasketballkobebryantoscarwinnershortfilm/DEAR%20BASKETBALL%20-%20KOBE%20BRYANT%20%28Oscar%20Winner%20Short%20Film%29.mp3",
-      title: "DEAR BASKETBALL - KOBE BRYANT (Oscar Winner Short Film)",
-      artist: "KOBE BRYANT"
-    },
-    // tslint:disable-next-line: max-line-length
-    {
-      uri:
-        "https://ia801504.us.archive.org/3/items/EdSheeranPerfectOfficialMusicVideoListenVid.com/Ed_Sheeran_-_Perfect_Official_Music_Video%5BListenVid.com%5D.mp3",
-      title: "Perfect",
-      artist: " Ed Sheeran"
-    },
-    {
-      // tslint:disable-next-line: max-line-length
-      uri:"https://ia801409.us.archive.org/31/items/dearbasketballkobebryantoscarwinnershortfilm/DEAR%20BASKETBALL%20-%20KOBE%20BRYANT%20%28Oscar%20Winner%20Short%20Film%29.mp3",
-      title: "DEAR BASKETBALL - KOBE BRYANT (Oscar Winner Short Film)",
-      artist: "KOBE BRYANT"
-    },
-    // tslint:disable-next-line: max-line-length
-    {
-      uri:
-        "https://ia801504.us.archive.org/3/items/EdSheeranPerfectOfficialMusicVideoListenVid.com/Ed_Sheeran_-_Perfect_Official_Music_Video%5BListenVid.com%5D.mp3",
-      title: "Perfect",
-      artist: " Ed Sheeran"
-    },
-    {
-      // tslint:disable-next-line: max-line-length
-      uri:"https://ia801409.us.archive.org/31/items/dearbasketballkobebryantoscarwinnershortfilm/DEAR%20BASKETBALL%20-%20KOBE%20BRYANT%20%28Oscar%20Winner%20Short%20Film%29.mp3",
-      title: "DEAR BASKETBALL - KOBE BRYANT (Oscar Winner Short Film)",
-      artist: "KOBE BRYANT"
-    }
-  ];  
+  constructor(private http: HttpClient){}
 
-  getFiles(){
-    return of(this.files);
+  getFiles(): Observable<FileDetails[]>{
+    return this.http.get<FileDetails[]>(endpoint);
   }
 }
