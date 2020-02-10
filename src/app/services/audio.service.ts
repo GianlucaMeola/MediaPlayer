@@ -4,9 +4,7 @@ import {takeUntil} from 'rxjs/operators';
 import * as moment from 'moment';
 import{StreamState} from '../interfaces/stream-state';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class AudioService {
   private state: StreamState = this.resetState();
 
@@ -28,8 +26,8 @@ private stateChange: BehaviorSubject<StreamState> = new BehaviorSubject(
   this.state
 );
 
-playStream(url){
-  return this.streamObservable(url).pipe(takeUntil(this.stop$));
+playStream(uri){
+  return this.streamObservable(uri).pipe(takeUntil(this.stop$));
 }
 
 getState(): Observable<StreamState> {
@@ -56,9 +54,9 @@ setVolume(volume){
   this.audioObj.volume = volume;
 }
 
-private streamObservable(url):any{
+private streamObservable(uri):any{
   return new Observable( observer => {
-    this.loadAndPlay(url);
+    this.loadAndPlay(uri);
 
     const handler = (event: Event) => {
       this.updateStateEvents(event);
@@ -114,8 +112,8 @@ private removeEvents(obj, events, handler) {
   });
 }
 
-private loadAndPlay(url){
-  this.audioObj.src = url;
+private loadAndPlay(uri){
+  this.audioObj.src = uri;
   this.audioObj.load();
   this.audioObj.play();
 }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AudioService} from '../../services/audio.service';
 import {CloudService} from '../../services/cloud.service';
 import {StreamState} from '../../interfaces/stream-state';
-import {MusicFile} from '../../interfaces/music-file';
+import {FileDetails} from '../../interfaces/music-file';
 
 @Component({
   selector: 'app-player',
@@ -11,30 +11,32 @@ import {MusicFile} from '../../interfaces/music-file';
 })
 export class PlayerComponent implements OnInit{
 
-  files: Array<MusicFile> = [];
+  files: Array<FileDetails> = [];
   state: StreamState;
   currentFile: any = {};
   public volume: number = 1;
   public veritcalSlider: boolean = true;
   public displayVolume = false;
 
-
   constructor(public audioService: AudioService, public cloudService: CloudService) {
-    cloudService.getFiles().subscribe( files => {
-      this.files = files;
-    });
-
     this.audioService.getState().subscribe( state => {
       this.state = state;
     });
    }
 
-   ngOnInit(){
+  ngOnInit(){
+    this.loadMusic();
     this.initFirst();
    }
 
-   playStream(url){
-     this.audioService.playStream(url).subscribe(event => {
+   loadMusic(){
+    this.cloudService.getFiles().subscribe( files => {
+      this.files = files;
+    });
+   }
+
+   playStream(uri){
+     this.audioService.playStream(uri).subscribe(event => {
        //lissen music
      })
    }
@@ -47,7 +49,7 @@ export class PlayerComponent implements OnInit{
    openFile(file, index){
     this.currentFile = {index, file};
     this.audioService.stop();
-    this.playStream(file.url);
+    this.playStream(file.uri);
    }
 
    play(){

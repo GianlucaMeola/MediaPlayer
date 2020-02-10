@@ -44,3 +44,10 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+package-lock.json
+.vs/slnx.sqlite
+.vs/VSWorkspaceState.json
+.vs/MediaPlayer/v16/.suo
+.gitignore
+package-lock.json
+package-lock.json
