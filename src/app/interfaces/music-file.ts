@@ -1,5 +1,5 @@
-export interface MusicFile {
-    url: string;
+export interface FileDetails {
+    uri: string;
     title: string;
     artist: string;
 }
