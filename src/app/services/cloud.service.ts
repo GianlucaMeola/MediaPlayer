@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {FileDetails} from '../interfaces/music-file';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { map, catchError, tap } from 'rxjs/operators';
 
 const endpoint: string = "https://musicfileapi.azurewebsites.net/api/MusicFile";
 
