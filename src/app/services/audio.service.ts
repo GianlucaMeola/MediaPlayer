@@ -92,6 +92,9 @@ private updateStateEvents(event: Event): void {
     case "pause":
       this.state.playing = false;
       break;
+    case "ended":
+      this.state.ended = true;
+    break;
     case "timeupdate":
       this.state.currentTime = this.audioObj.currentTime;
       this.state.readableCurrentTime = this.formatTime(
@@ -131,6 +134,7 @@ private resetState(): StreamState {
     duration: undefined,
     currentTime: undefined,
     canplay: false,
+    ended: false,
     error: false
   };
 }

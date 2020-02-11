@@ -64,8 +64,13 @@
       .media-action-bar {
         width: 100%;
         padding: 1.5rem;
-
         justify-content: center;
+        .toggleOnBtn{
+          color: #ffff00;
+        }
+        .toggleOffBtn{
+          color: #c4c4c4;
+        }
         .mat-icon {
           height: 32px !important;
           width: 32px !important;
