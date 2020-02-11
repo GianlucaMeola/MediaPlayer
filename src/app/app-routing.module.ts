@@ -8,7 +8,7 @@ const routes: Routes = [
   { path: "", component: PlayerComponent },
   { path: "player", component: PlayerComponent },
   { path: "upload", component: UploadComponent },
-  { path: "**", redirectTo: "" }
+  { path: "**", redirectTo: "upload" }
 ];
 
 @NgModule({

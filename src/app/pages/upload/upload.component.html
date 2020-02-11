@@ -1,1 +1,27 @@
-<p>upload works!</p>
+<div class="container">
+<div class="row">
+    <mat-form-field appearance="outline">
+      <mat-label>Song Title</mat-label>
+      <input matInput placeholder="e.g. Imagine">
+      <mat-icon matSuffix>music_note</mat-icon>
+      <mat-hint></mat-hint>
+    </mat-form-field>
+</div>
+<div class="row">
+    <mat-form-field appearance="outline">
+        <mat-label>Artist</mat-label>
+        <input matInput placeholder="e.g. John Lennon">
+        <mat-icon matSuffix>music_note</mat-icon>
+        <mat-hint></mat-hint>
+    </mat-form-field>
+</div>
+<div class="row">
+    <input type="file">
+</div>
+<div class="row">
+    <button style="width: 40%;" (click)="upload()" mat-raised-button color="primary">Upload <mat-icon matSuffix>cloud_upload</mat-icon></button>
+    
+</div>
+</div>
+
+    

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {CloudService} from '../../services/cloud.service'
 
 @Component({
   selector: 'app-upload',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UploadComponent implements OnInit {
 
-  constructor() { }
+  constructor(public cloudService: CloudService) { }
 
   ngOnInit(): void {
+  }
+
+  public payload: string = "test";
+
+  async upload(){
+    await this.cloudService.postFile(this.payload);
   }
 
 }

@@ -19,4 +19,15 @@ export class CloudService {
       console.log(HttpErrorResponse)
     }
   }
+
+  async postFile(payload: any){
+    try
+    {
+      await this.http.post(this.settingsProvider.configuration.BASEURL, payload).toPromise();
+    }
+    catch(HttpErrorResponse)
+    {
+      console.log(HttpErrorResponse)
+    }
+  }
 }
