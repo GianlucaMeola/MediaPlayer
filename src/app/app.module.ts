@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import {MaterialModule} from './material/material.module';
 import { HttpClientModule } from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,6 +10,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PlayerComponent } from './pages/player/player.component';
 import {CloudService} from './services/cloud.service';
 import {AudioService} from './services/audio.service';
+import {ConfigService} from './config/config.service';
+import {SettingsProvider} from './config/settings.provider';
+
 
 @NgModule({
   declarations: [
@@ -22,7 +26,22 @@ import {AudioService} from './services/audio.service';
     MaterialModule,
     HttpClientModule
   ],
-  providers: [CloudService, AudioService],
+  providers: [
+    CloudService,
+    AudioService, 
+    ConfigService,
+    SettingsProvider,
+    {
+      'provide': APP_INITIALIZER,
+      'useFactory': init,
+      'deps': [SettingsProvider, HttpClient, ConfigService],
+      'multi': true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+export function init(settingsProvider: SettingsProvider, http: HttpClient, configService: ConfigService){
+  var loadSettings = configService.loadConfig(http, settingsProvider);
+  return () => loadSettings;
+}
