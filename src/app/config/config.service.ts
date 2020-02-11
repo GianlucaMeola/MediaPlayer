@@ -21,7 +21,7 @@ export class ConfigService {
 
 
     
-      return  this.loadSettings(http,settingsProvider).then((result) => { return this.loadCampaign(http,settingsProvider)});
+      return  this.loadSettings(http,settingsProvider).then((result) => { return true});
 
     }
 
