@@ -1,3 +1,3 @@
 export interface IConfig{
-    MusicFileEndpoint: string
+    BASEURL: string
 }

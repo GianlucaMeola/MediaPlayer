@@ -11,7 +11,7 @@ import {FileDetails} from '../../interfaces/music-file';
 })
 export class PlayerComponent implements OnInit{
 
-  files: Array<FileDetails> = [];
+  files: Array<FileDetails> = [{title:"", artist:"", uri:""}];
   state: StreamState;
   currentFile: any = {};
   public volume: number = 1;
