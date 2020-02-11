@@ -1,24 +1,4 @@
-.container {
-    .main-toolbar {
-      .spacer {
-        flex: 1 1 auto;
-      }
-      .toolbar-btn {
-        font-size: 16px;
-        margin-right: 5px;
-        cursor: pointer;
-      }
-    }
-
-    .top-sticky{
-      position: -webkit-sticky;
-      position: sticky;
-      top: 0;
-      background-color: white; 
-      z-index: 10;
-    }
-  
-      .logo {
+        .logo {
         margin: 2.5rem;
         text-align: center;
         font-size: 16px;
@@ -78,4 +58,4 @@
         }
       }
     }
-  }
+  

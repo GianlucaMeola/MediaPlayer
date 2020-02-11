@@ -12,12 +12,14 @@ import {CloudService} from './services/cloud.service';
 import {AudioService} from './services/audio.service';
 import {ConfigService} from './config/config.service';
 import {SettingsProvider} from './config/settings.provider';
+import { UploadComponent } from './pages/upload/upload.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    PlayerComponent
+    PlayerComponent,
+    UploadComponent
   ],
   imports: [
     BrowserModule,
