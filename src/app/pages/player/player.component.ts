@@ -11,7 +11,7 @@ import {FileDetails} from '../../interfaces/music-file';
 })
 export class PlayerComponent implements OnInit{
 
-  files: Array<FileDetails> = [{title:"", artist:"", uri:""}];
+  files: Array<FileDetails> = [];
   state: StreamState;
   currentFile: any = {};
   public volume: number = 1;
@@ -24,13 +24,12 @@ export class PlayerComponent implements OnInit{
     });
    }
 
-  ngOnInit(){
-    this.loadMusic();
-    this.initFirst();
+  async ngOnInit(){
+    await this.loadMusic();
    }
 
-   loadMusic(){
-    this.cloudService.getFiles().subscribe( files => {
+   async loadMusic(){
+    (await this.cloudService.getFiles()).subscribe( files => {
       this.files = files;
     });
    }
@@ -39,11 +38,6 @@ export class PlayerComponent implements OnInit{
      this.audioService.playStream(uri).subscribe(event => {
        //lissen music
      })
-   }
-   
-   initFirst(){
-    this.openFile(this.files[0], 0);
-    this.pause();
    }
 
    openFile(file, index){
