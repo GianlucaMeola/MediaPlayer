@@ -17,6 +17,7 @@ export class PlayerComponent implements OnInit{
   public volume: number = 1;
   public veritcalSlider: boolean = true;
   public displayVolume = false;
+  public isLoopPlaying: boolean = true;
 
   constructor(public audioService: AudioService, public cloudService: CloudService) {
     this.audioService.getState().subscribe( state => {
@@ -24,8 +25,8 @@ export class PlayerComponent implements OnInit{
     });
    }
 
-  async ngOnInit(){
-    await this.loadMusic();
+  ngOnInit(){
+    this.loadMusic();
    }
 
    async loadMusic(){
@@ -36,7 +37,7 @@ export class PlayerComponent implements OnInit{
 
    playStream(uri){
      this.audioService.playStream(uri).subscribe(event => {
-       //lissen music
+      if(this.state.ended && this.isLoopPlaying) {this.next(); this.state.ended = false}
      })
    }
 
@@ -70,9 +71,15 @@ export class PlayerComponent implements OnInit{
     this.openFile(file, index);
   }
 
+  toggleLoopPlay(){
+    this.isLoopPlaying = !this.isLoopPlaying;
+    return this.isLoopPlaying;
+  }
+
   isFirstPlaying(): boolean {
     return this.currentFile.index === 0;
   }
+
   isLastPlaying(): boolean {
     return this.currentFile.index === this.files.length - 1;
   }

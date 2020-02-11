@@ -39,8 +39,8 @@
               <span>{{ state?.readableDuration }}</span>
           </mat-toolbar-row>
         <mat-toolbar-row class="media-action-bar">
-          <button mat-button disabled= "true">
-            <mat-icon mat-list-icon>repeat</mat-icon>
+          <button [ngClass]="{toggleOnBtn: isLoopPlaying, toggleOffBtn: !isLoopPlaying}" mat-button [disabled]="state?.error" (click)="toggleLoopPlay()">
+            <mat-icon mat-list-icon>loop</mat-icon>
           </button>
           <button mat-button (click)="previous()">
             <mat-icon mat-list-icon>skip_previous</mat-icon>

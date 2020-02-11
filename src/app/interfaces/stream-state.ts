@@ -5,5 +5,6 @@ export interface StreamState {
     duration: number | undefined;
     currentTime: number | undefined;
     canplay: boolean;
+    ended: boolean;
     error: boolean;
   }
