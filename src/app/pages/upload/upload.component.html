@@ -1,27 +1,30 @@
 <div class="container">
-<div class="row">
-    <mat-form-field appearance="outline">
-      <mat-label>Song Title</mat-label>
-      <input matInput placeholder="e.g. Imagine">
-      <mat-icon matSuffix>music_note</mat-icon>
-      <mat-hint></mat-hint>
-    </mat-form-field>
+    <h1> Upload New Music File</h1>
+    <form [formGroup]="musicForm" >
+        <div class="row">
+            <mat-form-field appearance="outline">
+                <mat-label for="title">Song Title</mat-label>
+                <input id="title" formControlName="title" matInput placeholder="e.g. Imagine" >
+                <mat-icon matSuffix>music_note</mat-icon>
+                <mat-hint></mat-hint>
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field appearance="outline">
+                <mat-label for="artist">Artist</mat-label>
+                <input id="artist" formControlName="artist" matInput placeholder="e.g. John Lennon">
+                <mat-icon matSuffix>music_note</mat-icon>
+                <mat-hint></mat-hint>
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <label for="musicFile"></label>
+            <input id="musicFile" formControlName="musicFile" type="file" class="file_upload" (change)="uploadFile($event)" >
+        </div>
+        <div class="row">
+            <button class="upload_btn" type="submit" (click)="uploadMusic()" mat-raised-button color="primary">Upload
+                <mat-icon matSuffix>cloud_upload</mat-icon>
+            </button>
+        </div>
+    </form>
 </div>
-<div class="row">
-    <mat-form-field appearance="outline">
-        <mat-label>Artist</mat-label>
-        <input matInput placeholder="e.g. John Lennon">
-        <mat-icon matSuffix>music_note</mat-icon>
-        <mat-hint></mat-hint>
-    </mat-form-field>
-</div>
-<div class="row">
-    <input type="file">
-</div>
-<div class="row">
-    <button style="width: 40%;" (click)="upload()" mat-raised-button color="primary">Upload <mat-icon matSuffix>cloud_upload</mat-icon></button>
-    
-</div>
-</div>
-
-    
