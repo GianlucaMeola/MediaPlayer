@@ -41,10 +41,10 @@ export class PlayerComponent implements OnInit{
      })
    }
 
-   openFile(file, index){
-    this.currentFile = {index, file};
+   openFile(musicFile, index){
+    this.currentFile = {index, musicFile};
     this.audioService.stop();
-    this.playStream(file.uri);
+    this.playStream(musicFile.uri);
    }
 
    play(){
@@ -61,14 +61,14 @@ export class PlayerComponent implements OnInit{
 
    next(){
     let index = !this.isLastPlaying() ? this.currentFile.index + 1 : 0;
-    const file = this.files[index];
-    this.openFile(file, index);
+    const musicFile = this.files[index];
+    this.openFile(musicFile, index);
    }
 
    previous(){
     const index = !this.isFirstPlaying() ? this.currentFile.index - 1 : this.files.length - 1;
-    const file = this.files[index];
-    this.openFile(file, index);
+    const musicFile = this.files[index];
+    this.openFile(musicFile, index);
   }
 
   toggleLoopPlay(){

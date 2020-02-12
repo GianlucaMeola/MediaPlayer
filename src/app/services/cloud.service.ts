@@ -1,33 +1,38 @@
 import { Injectable } from '@angular/core';
-import {FileDetails} from '../interfaces/music-file';
+import {FileDetails, PayloadDetails} from '../interfaces/music-file';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
 import { SettingsProvider } from '../config/settings.provider';
+import{BaseService} from './base.service';
 
 @Injectable()
-export class CloudService {
+export class CloudService extends BaseService {
 
-  constructor(private http: HttpClient, private settingsProvider: SettingsProvider,){}
+  constructor(private http: HttpClient, private settingsProvider: SettingsProvider,){
+    super();
+  }
 
-  async getFiles(){
+  getFiles():any{
     try
     {
-    return await this.http.get<FileDetails[]>(this.settingsProvider.configuration.BASEURL);
+    return this.http.get<FileDetails[]>(this.settingsProvider.configuration.BASEURL, this.prepareHeaders());
     }
-    catch(HttpErrorResponse)
+    catch(error)
     {
-      console.log(HttpErrorResponse)
+      console.log(error)
     }
   }
 
-  async postFile(payload: any){
+   postFile(formData: any){
     try
     {
-      await this.http.post(this.settingsProvider.configuration.BASEURL, payload).toPromise();
+      this.http.post(this.settingsProvider.configuration.BASEURL, formData).subscribe(
+      (response) => console.log(response),
+      (error) => console.log(error)
+    );
     }
-    catch(HttpErrorResponse)
+    catch(error)
     {
-      console.log(HttpErrorResponse)
+      console.log(error);
     }
   }
 }
