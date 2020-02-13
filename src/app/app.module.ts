@@ -14,6 +14,7 @@ import {AudioService} from './services/audio.service';
 import {ConfigService} from './config/config.service';
 import {SettingsProvider} from './config/settings.provider';
 import { UploadComponent } from './pages/upload/upload.component';
+import {LoadingModule} from './shared/loading/loading.module';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { UploadComponent } from './pages/upload/upload.component';
     MaterialModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    LoadingModule
   ],
   providers: [
     CloudService,
