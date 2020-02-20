@@ -1,11 +1,16 @@
 import { Injectable } from '@angular/core';
-import {FileDetails, PayloadDetails} from '../interfaces/music-file';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import {FileDetails} from '../interfaces/music-file';
+import { HttpClient } from '@angular/common/http';
 import { SettingsProvider } from '../config/settings.provider';
 import{BaseService} from './base.service';
 
+import { catchError , map, tap} from 'rxjs/operators';
+import { Observable , throwError} from 'rxjs';
+
 @Injectable()
 export class CloudService extends BaseService {
+
+  public response: any;
 
   constructor(private http: HttpClient, private settingsProvider: SettingsProvider,){
     super();
@@ -22,17 +27,14 @@ export class CloudService extends BaseService {
     }
   }
 
-   postFile(formData: any){
-    try
-    {
-      this.http.post(this.settingsProvider.configuration.BASEURL, formData).subscribe(
-      (response) => console.log(response),
-      (error) => console.log(error)
-    );
-    }
-    catch(error)
-    {
-      console.log(error);
-    }
+  postFile(formData: any):Promise<object>{
+    return  this.http.post(this.settingsProvider.configuration.BASEURL, formData)
+            .pipe(tap((response) => {this.response = <any>response;}), catchError(this.handlerError)).toPromise();
   }
+
+  private handlerError(error : Response)
+    {
+        console.error(error);
+        return throwError(error);
+    }
 }
