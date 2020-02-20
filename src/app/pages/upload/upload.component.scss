@@ -15,7 +15,14 @@
     border: 1px solid rgba(0, 0, 0, 0.12); 
     border-radius: 4px; 
     background: white; 
-    margin-bottom: 1.5em;
+    margin-bottom: 0;
+  }
+
+  .file_error{
+    text-align:inherit; 
+    margin:0; 
+    font-size: 75%; 
+    color: #f44336;
   }
 
   .upload_btn{

@@ -25,7 +25,7 @@ export class UploadComponent implements OnInit {
    get formValue(){ return this.musicForm.value; }
    get artist() {return this.musicForm.get("artist");}
    get title() {return this.musicForm.get("title");}
-   get file() {return this.musicForm.get("musicFile");}
+   get musicFile() {return this.musicForm.get("musicFile");}
    
   ngOnInit(): void {
   }
@@ -40,6 +40,7 @@ export class UploadComponent implements OnInit {
     }
 
     async uploadMusic(formDirective: FormGroupDirective){
+      this.musicFile.markAllAsTouched();
       if(this.musicForm.invalid){
         return;
       }
