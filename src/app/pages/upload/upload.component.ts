@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {CloudService} from '../../services/cloud.service';
 import { FormBuilder, Validators, FormGroup, FormGroupDirective } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { AlertDialogComponent } from 'src/app/alert-dialog/alert-dialog.component';
 
 const NO_SPECIAL_CHAR = /^[^*|\":<>[\]{}`\\()';@&$éàèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ]+$/;
 
@@ -14,7 +16,7 @@ export class UploadComponent implements OnInit {
   public isLoading = false;
   public payload = new FormData();
 
-  constructor(public cloudService: CloudService, private formBuilder: FormBuilder) {
+  constructor(public cloudService: CloudService, private formBuilder: FormBuilder, private dialog: MatDialog) {
     this.buildForm();
    }
 
@@ -49,19 +51,23 @@ export class UploadComponent implements OnInit {
         formData.append('musicFile', this.musicForm.get("musicFile").value);
         formData.append('artist', this.musicForm.get("artist").value);
         formData.append('title', this.musicForm.get("title").value);
-        await this.cloudService.postFile(formData);      
+        let res = await this.cloudService.postFile(formData);      
         formDirective.resetForm();
         this.musicForm.reset(this.musicForm.value);
+        this.openAlertDialog('Success!', res.toString());
       }
-      catch(error)
+      catch(e)
       {
-        console.log(error.error)
+        console.log(e.error)
+        let errors = e.error;
+        errors.forEach(error => {
+          this.openAlertDialog(error.errorCode, error.description)
+        });        
       }
       finally
       {
-        this.isLoading = false;
+        this.isLoading = false; 
       }
-
     }
 
     uploadFile(event) {
@@ -70,5 +76,17 @@ export class UploadComponent implements OnInit {
         musicFile: newFile
       });
       this.musicForm.get('musicFile').updateValueAndValidity();
+    }
+
+    openAlertDialog(title: string, message?: string, button?: string,) {
+      const dialogRef = this.dialog.open(AlertDialogComponent,{
+        data:{
+          title: title,
+          message: message,
+          buttonText: {
+            cancel: button
+          }
+        },
+      });
     }
 }

@@ -15,13 +15,15 @@ import {ConfigService} from './config/config.service';
 import {SettingsProvider} from './config/settings.provider';
 import { UploadComponent } from './pages/upload/upload.component';
 import {LoadingModule} from './shared/loading/loading.module';
+import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     PlayerComponent,
-    UploadComponent
+    UploadComponent,
+    AlertDialogComponent
   ],
   imports: [
     BrowserModule,
