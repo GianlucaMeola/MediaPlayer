@@ -16,6 +16,8 @@ import {SettingsProvider} from './config/settings.provider';
 import { UploadComponent } from './pages/upload/upload.component';
 import {LoadingModule} from './shared/loading/loading.module';
 import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
+import {AlertConfirmComponent} from './alert-confirm/alert-confirm.component'
+import { MusicListComponent } from './pages/musiclist/musiclist.component';
 
 
 @NgModule({
@@ -23,7 +25,9 @@ import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
     AppComponent,
     PlayerComponent,
     UploadComponent,
-    AlertDialogComponent
+    AlertDialogComponent,
+    AlertConfirmComponent,
+    MusicListComponent
   ],
   imports: [
     BrowserModule,
