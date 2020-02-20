@@ -93,8 +93,6 @@ const AGModules = [
   ScrollingModule
 ];
 
-
-
 @NgModule({
   declarations: [],
   imports: [

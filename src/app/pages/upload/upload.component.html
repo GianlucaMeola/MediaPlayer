@@ -20,9 +20,11 @@
                 <mat-error *ngIf="artist.hasError('pattern')">Special charater not allowed</mat-error>
             </mat-form-field>
         </div>
-        <div class="row">
-            <label for="musicFile"></label>
-            <input id="musicFile" formControlName="musicFile" type="file" class="file_upload" (change)="uploadFile($event)" >
+        <div class="row" style="margin-bottom: 1.5em;">
+
+                <input id="musicFile" formControlName="musicFile" type="file" class="file_upload" (change)="uploadFile($event)" [formControl]="musicFile" [style.border-color]= "musicFile.hasError('required') && (musicFile.dirty || musicFile.touched) ? '#f44336' : null">
+                <p *ngIf="musicFile.hasError('required')  && (musicFile.dirty || musicFile.touched)" class="file_error">Please choose a music file to upoload</p>
+
         </div>
         <div class="row">
             <button class="upload_btn" type="submit" (click)="uploadMusic(formDirective)" mat-raised-button color="primary">Upload
