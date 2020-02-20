@@ -10,7 +10,7 @@ import {FileDetails} from '../../interfaces/music-file';
   styleUrls: ['./player.component.scss']
 })
 export class PlayerComponent implements OnInit{
-
+  public isLoading = false;
   files: Array<FileDetails> = [];
   state: StreamState;
   currentFile: any = {};
@@ -27,12 +27,24 @@ export class PlayerComponent implements OnInit{
 
   ngOnInit(){
     this.loadMusic();
-   }
+  }
 
    async loadMusic(){
-    (await this.cloudService.getFiles()).subscribe( files => {
-      this.files = files;
-    });
+    try
+    {
+      this.isLoading = true;
+      (await this.cloudService.getFiles()).subscribe( files => {
+        this.files = files;
+      });
+    }
+    catch(error)
+    {
+      console.log("eeror", error);
+    }
+    finally
+    {
+      this.isLoading = false;
+    }
    }
 
    playStream(uri){
