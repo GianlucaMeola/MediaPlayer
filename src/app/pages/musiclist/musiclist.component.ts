@@ -15,7 +15,7 @@ export class MusicListComponent implements OnInit {
   public isLoading = false;
   public files: Array<FileDetails> = [];
 
-  constructor(public cloudService: CloudService, private dialog: MatDialog) { }
+  constructor(public cloudService: CloudService, private dialog: MatDialog, ) { }
 
   ngOnInit() {
     this.loadMusic();
@@ -39,13 +39,13 @@ export class MusicListComponent implements OnInit {
   async delete(file: FileDetails) {
     let isConfirmed = await this.openConfirmDialog();
     if (!isConfirmed ||file.uri=="" || file.uri==null) return;
-    this.openConfirmDialog
     this.isLoading = true;
     var formData: any = new FormData();
     try {
       formData.append('fileName', file.uri);
       let res = await this.cloudService.delete(formData);
       this.openAlertDialog('Success!', file.title +" "+ res.toString());
+      this.loadMusic();
     } catch (e) {
       let errors = e.error;
       errors.forEach(error => {
@@ -56,8 +56,9 @@ export class MusicListComponent implements OnInit {
     }
   }
 
-  edit(file: FileDetails) {
-    this.openEditorDialog(file);
+  async edit(file: FileDetails) {
+    let res = await this.openEditorDialog(file);
+    if(res) this.loadMusic();
   }
 
   openAlertDialog(title: string, message?: string, button?: string, ) {
@@ -85,7 +86,7 @@ export class MusicListComponent implements OnInit {
     return await dialogRef.afterClosed().toPromise();
   }
 
-  openEditorDialog(file: FileDetails) {
+  async openEditorDialog(file: FileDetails) {
     const dialogRef = this.dialog.open(AlertEditorComponent, {
       data: {
         title: file.title,
@@ -93,5 +94,6 @@ export class MusicListComponent implements OnInit {
         uri: file.uri
       },
     });
+    return await dialogRef.afterClosed().toPromise();
   }
 }

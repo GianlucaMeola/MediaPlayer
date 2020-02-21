@@ -1,5 +1,8 @@
 <app-loading *ngIf= "isLoading" ></app-loading>
 <div class="playlist"> 
+    <mat-toolbar class="top-sticky">
+        <span class="mat-toolbar ">Edit The Files</span>
+      </mat-toolbar>
     <mat-list color="primary">
       
       <mat-list-item *ngFor="let musicFile of files; let i = index" >

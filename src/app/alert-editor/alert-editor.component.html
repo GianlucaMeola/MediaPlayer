@@ -1,3 +1,4 @@
+<app-loading *ngIf= "isLoading" ></app-loading>
 <h1 mat-dialog-title>
     {{formTitle}}
 </h1>
@@ -20,8 +21,8 @@
         <mat-error *ngIf="editorForm?.controls?.artist?.hasError('pattern')">Special charater not allowed</mat-error>
     </mat-form-field>
 </div>
-</form>
 <mat-dialog-actions align="end">
 <button mat-button mat-dialog-close>{{cancelButtonText}}</button>
-<button mat-button color="primary" [mat-dialog-close]="true" cdkFocusInitial>{{confirmButtonText}}</button>
+<button mat-button color="primary" (click)= "onConfirmClick()">{{confirmButtonText}}</button>
 </mat-dialog-actions>
+</form>
