@@ -11,9 +11,9 @@ import {FileDetails} from '../../interfaces/music-file';
 })
 export class PlayerComponent implements OnInit{
   public isLoading = false;
-  files: Array<FileDetails> = [];
-  state: StreamState;
-  currentFile: any = {};
+  public files: Array<FileDetails> = [];
+  public state: StreamState;
+  public currentFile: any = {};
   public volume: number = 1;
   public veritcalSlider: boolean = true;
   public displayVolume = false;
