@@ -26,7 +26,7 @@ export class CloudService extends BaseService {
   }
 
   delete(formData: any):Promise<object>{
-    return this.http.delete(this.settingsProvider.configuration.BASEURL, formData)
+    return this.http.request('delete',this.settingsProvider.configuration.BASEURL, {body: formData})
             .pipe(tap((response) => {this.response = <any>response;}), catchError(this.handlerError)).toPromise();
   }
 

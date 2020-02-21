@@ -25,7 +25,7 @@ export class MusicListComponent implements OnInit {
       this.isLoading = true;
       (await this.cloudService.getFiles()).subscribe(files => {
         this.files = files;
-      });
+      });      
     }
     catch (error) {
       console.log("error", error);
@@ -35,21 +35,20 @@ export class MusicListComponent implements OnInit {
     }
   }
 
-  async delete(fileName?: string) {
+  async delete(file: FileDetails) {
     let isConfirmed = await this.openConfirmDialog();
-    if (!isConfirmed) return;
-    fileName = "https://mediaplayerstorage.blob.core.windows.net/musicfiles/1637177934337406960_2f5b2e08-496f-479a-aa37-b94d6f4d958d.mp3"
+    if (!isConfirmed ||file.uri=="" || file.uri==null) return;
     this.openConfirmDialog
     this.isLoading = true;
     var formData: any = new FormData();
     try {
-      formData.append('fileName', fileName);
+      formData.append('fileName', file.uri);
       let res = await this.cloudService.delete(formData);
-      this.openAlertDialog('Success!', res.toString());
+      this.openAlertDialog('Success!', file.title +" "+ res.toString());
     } catch (e) {
       let errors = e.error;
       errors.forEach(error => {
-        this.openAlertDialog("Error", error.description)
+        this.openAlertDialog("Error", (error.description))
       });
     } finally {
       this.isLoading = false;
