@@ -57,13 +57,15 @@ export class UploadComponent implements OnInit {
         this.musicForm.reset(this.musicForm.value);
         this.openAlertDialog('Success!', res.toString());
       }
-      catch(e)
-      {
+      catch(e) {
+        if(e.statusText == "Unknown Error")  this.openAlertDialog( "Error", "Something went wrong");
+        else{
         console.log(e.error)
         let errors = e.error;
         errors.forEach(error => {
-          this.openAlertDialog(error.errorCode, error.description)
-        });        
+          this.openAlertDialog(error.errorCode || "Error", error.description || "Something went wrong");
+        }); 
+      }       
       }
       finally
       {

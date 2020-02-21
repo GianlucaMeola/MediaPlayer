@@ -68,11 +68,14 @@ export class AlertEditorComponent {
             this.dialogRef.close(true);
         }
         catch (e) {
+            if(e.statusText == "Unknown Error")  this.openAlertDialog( "Error", "Something went wrong");
+            else{
             console.log(e.error)
             let errors = e.error;
             errors.forEach(error => {
-              this.openAlertDialog(error.errorCode || "Error", error.description)
+              this.openAlertDialog(error.errorCode || "Error", error.description || "Something went wrong")
             });
+        }
             this.dialogRef.close(false);
         }
         finally {
