@@ -17,6 +17,7 @@ import { UploadComponent } from './pages/upload/upload.component';
 import {LoadingModule} from './shared/loading/loading.module';
 import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
 import {AlertConfirmComponent} from './alert-confirm/alert-confirm.component'
+import {AlertEditorComponent} from './alert-editor/alert-editor.component'
 import { MusicListComponent } from './pages/musiclist/musiclist.component';
 
 
@@ -27,6 +28,7 @@ import { MusicListComponent } from './pages/musiclist/musiclist.component';
     UploadComponent,
     AlertDialogComponent,
     AlertConfirmComponent,
+    AlertEditorComponent,
     MusicListComponent
   ],
   imports: [

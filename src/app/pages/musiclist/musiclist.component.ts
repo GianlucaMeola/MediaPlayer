@@ -4,6 +4,7 @@ import { FileDetails } from 'src/app/interfaces/music-file';
 import { MatDialog } from '@angular/material/dialog';
 import { AlertConfirmComponent } from 'src/app/alert-confirm/alert-confirm.component';
 import { AlertDialogComponent } from 'src/app/alert-dialog/alert-dialog.component';
+import { AlertEditorComponent } from 'src/app/alert-editor/alert-editor.component';
 
 @Component({
   selector: 'musiclist-edit',
@@ -55,8 +56,8 @@ export class MusicListComponent implements OnInit {
     }
   }
 
-  edit() {
-    console.log("edit");
+  edit(file: FileDetails) {
+    this.openEditorDialog(file);
   }
 
   openAlertDialog(title: string, message?: string, button?: string, ) {
@@ -81,7 +82,16 @@ export class MusicListComponent implements OnInit {
         }
       },
     });
-
     return await dialogRef.afterClosed().toPromise();
+  }
+
+  openEditorDialog(file: FileDetails) {
+    const dialogRef = this.dialog.open(AlertEditorComponent, {
+      data: {
+        title: file.title,
+        artist: file.artist,
+        uri: file.uri
+      },
+    });
   }
 }

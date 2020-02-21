@@ -25,6 +25,11 @@ export class CloudService extends BaseService {
             .pipe(tap((response) => {this.response = <any>response;}), catchError(this.handlerError)).toPromise();
   }
 
+  putFile(formData: any): Promise<object>{
+    return this.http.put(this.settingsProvider.configuration.BASEURL, formData)
+    .pipe(tap((response) => {this.response = <any>response;}), catchError(this.handlerError)).toPromise();
+  }
+
   delete(formData: any):Promise<object>{
     return this.http.request('delete',this.settingsProvider.configuration.BASEURL, {body: formData})
             .pipe(tap((response) => {this.response = <any>response;}), catchError(this.handlerError)).toPromise();

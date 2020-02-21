@@ -6,7 +6,7 @@
         <mat-icon color="primary" mat-list-icon>music_note</mat-icon>
         <h4 mat-line>{{ musicFile?.title }}</h4>
         <h5 mat-line>by {{ musicFile?.artist }}</h5>
-        <mat-icon color="primary" (click)="edit()" class="mat-icon">edit</mat-icon>
+        <mat-icon color="primary" (click)="edit(musicFile)" class="mat-icon">edit</mat-icon>
         <mat-icon color="primary" (click)="delete(musicFile)" class="mat-icon">delete</mat-icon>
         
         <mat-divider></mat-divider>
