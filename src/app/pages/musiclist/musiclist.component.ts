@@ -15,7 +15,7 @@ export class MusicListComponent implements OnInit {
   public isLoading = false;
   public files: Array<FileDetails> = [];
 
-  constructor(public cloudService: CloudService, private dialog: MatDialog, ) { }
+  constructor(public cloudService: CloudService, private dialog: MatDialog) { }
 
   ngOnInit() {
     this.loadMusic();
@@ -24,12 +24,16 @@ export class MusicListComponent implements OnInit {
   async loadMusic() {
     try {
       this.isLoading = true;
-      (await this.cloudService.getFiles()).subscribe(files => {
-        this.files = files;
-      });      
+      this.files = await this.cloudService.getFiles();
     }
-    catch (error) {
-      console.log("error", error);
+    catch (e) {
+      if (e.statusText == "Unknown Error") this.openAlertDialog("Error", "Something went wrong");
+      else {
+        let errors = e.error;
+        errors.forEach(error => {
+          this.openAlertDialog(error.errorCode || "Error", (error.description) || "Something went wrong");
+        });
+      }
     }
     finally {
       this.isLoading = false;
@@ -38,19 +42,23 @@ export class MusicListComponent implements OnInit {
 
   async delete(file: FileDetails) {
     let isConfirmed = await this.openConfirmDialog();
-    if (!isConfirmed ||file.uri=="" || file.uri==null) return;
+    if (!isConfirmed || file.uri == "" || file.uri == null) return;
     this.isLoading = true;
     var formData: any = new FormData();
     try {
       formData.append('fileName', file.uri);
       let res = await this.cloudService.delete(formData);
-      this.openAlertDialog('Success!', file.title +" "+ res.toString());
+      this.openAlertDialog('Success!', file.title + " " + res.toString());
       this.loadMusic();
-    } catch (e) {
-      let errors = e.error;
-      errors.forEach(error => {
-        this.openAlertDialog("Error", (error.description))
-      });
+    } 
+    catch (e) {
+      if (e.statusText == "Unknown Error") this.openAlertDialog("Error", "Something went wrong");
+      else {
+        let errors = e.error;
+        errors.forEach(error => {
+          this.openAlertDialog("Error", error.description || "Something went wrong")
+        });
+      }
     } finally {
       this.isLoading = false;
     }
@@ -58,7 +66,7 @@ export class MusicListComponent implements OnInit {
 
   async edit(file: FileDetails) {
     let res = await this.openEditorDialog(file);
-    if(res) this.loadMusic();
+    if (res) this.loadMusic();
   }
 
   openAlertDialog(title: string, message?: string, button?: string, ) {
